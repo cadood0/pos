@@ -17,9 +17,9 @@ class Products extends Api_Controller
         $search = $this->input->get('search');
         $category_id = $this->input->get('category_id');
 
-        $this->json(
+        $this->json_ok(
             $this->product_service->paginate($page, $search, $category_id),
-            200
+            'Products loaded.'
         );
     }
 
@@ -57,7 +57,7 @@ class Products extends Api_Controller
             return;
         }
 
-        $this->json($result['product'], 201);
+        $this->json_ok($result['product'], 'Product created.', 201);
     }
 
     public function show($id)
@@ -71,7 +71,7 @@ class Products extends Api_Controller
             return;
         }
 
-        $this->json($product, 200);
+        $this->json_ok($product, 'Product loaded.');
     }
 
     public function update($id)
@@ -108,7 +108,7 @@ class Products extends Api_Controller
             return;
         }
 
-        $this->json($result['product'], 200);
+        $this->json_ok($result['product'], 'Product updated.');
     }
 
     public function destroy($id)
@@ -132,7 +132,7 @@ class Products extends Api_Controller
             return;
         }
 
-        $this->json(['message' => $result['message']], 200);
+        $this->json_ok([], $result['message']);
     }
 
     protected function set_update_rules($input)

@@ -16,30 +16,26 @@ class MY_Controller extends CI_Controller
 
 class Api_Controller extends MY_Controller
 {
-    protected function json_ok($data = NULL, $message = NULL, $status = 200)
+    protected function json_ok($data = [], $message = 'Success', $status = 200)
     {
-        $body = [];
-
-        if ($message !== NULL) {
-            $body['message'] = $message;
+        if ($data === NULL) {
+            $data = [];
         }
 
-        if ($data !== NULL) {
-            $body['data'] = $data;
+        if ($message === NULL || $message === '') {
+            $message = 'Success';
         }
 
-        return $this->json($body, $status);
+        return $this->json(api_success($data, $message), $status);
     }
 
-    protected function json_error($message, $status = 400, $errors = NULL)
+    protected function json_error($message, $status = 400, $errors = [])
     {
-        $body = ['message' => $message];
-
-        if ($errors !== NULL) {
-            $body['errors'] = $errors;
+        if ($errors === NULL) {
+            $errors = [];
         }
 
-        return $this->json($body, $status);
+        return $this->json(api_error($message, $status, $errors), $status);
     }
 
     protected function json(array $body, $status)

@@ -175,7 +175,7 @@ async function searchProducts() {
 
     try {
         const response = await ApiClient.request('/api/products?' + params.toString());
-        renderProducts(response.items || []);
+        renderProducts((response.data && response.data.items) || []);
     } catch (error) {
         showCheckoutAlert(
             (error.payload && error.payload.message) || 'Unable to load products.',
@@ -207,12 +207,12 @@ async function completeSale() {
     button.disabled = true;
 
     try {
-        const sale = await ApiClient.request('/api/sales', {
+        const response = await ApiClient.request('/api/sales', {
             method: 'POST',
             body: JSON.stringify(checkoutPayload())
         });
 
-        window.location.href = saleUrl('/' + sale.id);
+        window.location.href = saleUrl('/' + response.data.id);
     } catch (error) {
         showCheckoutAlert(
             (error.payload && error.payload.message) || 'Unable to complete sale.',
@@ -258,11 +258,12 @@ async function loadSaleHistory(page) {
 
     try {
         const response = await ApiClient.request('/api/sales?page=' + page);
-        const rows = response.items || [];
+        const payload = response.data || {};
+        const rows = payload.items || [];
 
         if (!rows.length) {
             tbody.innerHTML = '<tr><td colspan="8" class="text-muted">No sales yet.</td></tr>';
-            renderSalePagination(response);
+            renderSalePagination(payload);
             return;
         }
 
@@ -283,7 +284,7 @@ async function loadSaleHistory(page) {
             </tr>
         `).join('');
 
-        renderSalePagination(response);
+        renderSalePagination(payload);
     } catch (error) {
         showSaleAlert(
             (error.payload && error.payload.message) || 'Unable to load sales.',
@@ -300,7 +301,8 @@ async function loadReceipt() {
     }
 
     try {
-        const sale = await ApiClient.request('/api/sales/' + card.dataset.id);
+        const response = await ApiClient.request('/api/sales/' + card.dataset.id);
+        const sale = response.data || {};
 
         document.getElementById('receiptInvoice').textContent = sale.invoice_no;
         document.getElementById('receiptDate').textContent = sale.created_at;

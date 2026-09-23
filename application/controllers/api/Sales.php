@@ -15,9 +15,9 @@ class Sales extends Api_Controller
 
         $page = max(1, (int) $this->input->get('page'));
 
-        $this->json(
+        $this->json_ok(
             $this->sale_service->paginate($page),
-            200
+            'Sales loaded.'
         );
     }
 
@@ -45,8 +45,9 @@ class Sales extends Api_Controller
             return;
         }
 
-        $this->json(
+        $this->json_ok(
             $this->sale_service->get($result['sale_id']),
+            'Sale created.',
             201
         );
     }
@@ -62,7 +63,7 @@ class Sales extends Api_Controller
             return;
         }
 
-        $this->json($sale, 200);
+        $this->json_ok($sale, 'Sale loaded.');
     }
 
     protected function validate_checkout($input)

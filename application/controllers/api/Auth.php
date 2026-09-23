@@ -107,7 +107,7 @@ class Auth extends Api_Controller
 
         $this->require_auth();
 
-        $this->json_ok($this->user_payload($this->current_user));
+        $this->json_ok($this->user_payload($this->current_user), 'User loaded.');
     }
 
     public function logout()

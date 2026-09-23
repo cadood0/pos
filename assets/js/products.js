@@ -138,11 +138,12 @@ async function loadProducts(page) {
 
     try {
         const response = await ApiClient.request('/api/products?' + productsQuery(page));
-        const rows = response.items || [];
+        const payload = response.data || {};
+        const rows = payload.items || [];
 
         if (!rows.length) {
             tbody.innerHTML = '<tr><td colspan="7" class="text-muted">No products found.</td></tr>';
-            renderPagination(response);
+            renderPagination(payload);
             return;
         }
 
@@ -168,8 +169,8 @@ async function loadProducts(page) {
             </tr>
         `).join('');
 
-        renderPagination(response);
-        tbody.dataset.page = String(response.current_page || page);
+        renderPagination(payload);
+        tbody.dataset.page = String(payload.current_page || page);
     } catch (error) {
         showAlert(
             (error.payload && error.payload.message) || 'Unable to load products.',
@@ -225,7 +226,8 @@ async function loadProductEdit() {
     }
 
     try {
-        const product = await ApiClient.request('/api/products/' + form.dataset.id);
+        const response = await ApiClient.request('/api/products/' + form.dataset.id);
+        const product = response.data || {};
 
         form.elements.name.value = product.name;
         form.elements.barcode.value = product.barcode || '';
