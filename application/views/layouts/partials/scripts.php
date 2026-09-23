@@ -7,7 +7,8 @@ window.APP = {
     categoriesUrl: <?= json_encode(site_url('categories')) ?>,
     productsUrl: <?= json_encode(site_url('products')) ?>,
     posUrl: <?= json_encode(site_url('pos')) ?>,
-    salesUrl: <?= json_encode(site_url('sales')) ?>
+    salesUrl: <?= json_encode(site_url('sales')) ?>,
+    reportsUrl: <?= json_encode(site_url('reports')) ?>
 };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
