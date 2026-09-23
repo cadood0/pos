@@ -30,9 +30,17 @@ $route['categories/create']['get'] = 'web/categories/create';
 $route['categories/(:num)/edit']['get'] = 'web/categories/edit/$1';
 $route['categories/(:num)']['get'] = 'web/categories/show/$1';
 
+$route['api/sales']['get'] = 'api/sales/index';
+$route['api/sales']['post'] = 'api/sales/store';
+$route['api/sales/(:num)']['get'] = 'api/sales/show/$1';
+
 $route['products']['get'] = 'web/products/index';
 $route['products/create']['get'] = 'web/products/create';
 $route['products/(:num)/edit']['get'] = 'web/products/edit/$1';
+
+$route['pos']['get'] = 'web/pos/index';
+$route['sales/history']['get'] = 'web/pos/history';
+$route['sales/(:num)']['get'] = 'web/pos/receipt/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
