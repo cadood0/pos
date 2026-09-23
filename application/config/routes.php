@@ -13,5 +13,16 @@ $route['api/me'] = 'api/auth/me';
 $route['api/logout'] = 'api/auth/logout';
 $route['api/reports/summary'] = 'api/reports/summary';
 
+$route['api/categories']['get'] = 'api/categories/index';
+$route['api/categories']['post'] = 'api/categories/store';
+$route['api/categories/(:num)']['get'] = 'api/categories/show/$1';
+$route['api/categories/(:num)']['put'] = 'api/categories/update/$1';
+$route['api/categories/(:num)']['delete'] = 'api/categories/destroy/$1';
+
+$route['categories']['get'] = 'web/categories/index';
+$route['categories/create']['get'] = 'web/categories/create';
+$route['categories/(:num)/edit']['get'] = 'web/categories/edit/$1';
+$route['categories/(:num)']['get'] = 'web/categories/show/$1';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

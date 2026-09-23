@@ -8,6 +8,7 @@ class Dashboard extends MY_Controller
         $data = [
             'title'   => 'Dashboard',
             'content' => 'dashboard/index',
+            'scripts' => ['assets/js/dashboard.js'],
         ];
 
         $this->load->view('layouts/admin', $data);

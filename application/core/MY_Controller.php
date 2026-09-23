@@ -59,6 +59,11 @@ class Api_Controller extends MY_Controller
         return is_array($decoded) ? $decoded : [];
     }
 
+    protected function validation_errors()
+    {
+        return $this->form_validation->error_array();
+    }
+
     protected function require_auth()
     {
         if ( ! $this->authservice->check() || ! $this->current_user || (int) $this->current_user->status !== 1) {
