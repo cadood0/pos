@@ -1,0 +1,22 @@
+.app-shell {
+    min-height: 100vh;
+    display: flex;
+}
+
+.app-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+}
+
+.app-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.app-content {
+    min-height: calc(100vh - 56px);
+}
+
+.app-sidebar .nav-link:hover {
+    color: #fff;
+}
