@@ -46,5 +46,14 @@ $route['sales/history']['get'] = 'web/pos/history';
 $route['sales/(:num)']['get'] = 'web/pos/receipt/$1';
 $route['reports']['get'] = 'web/reports/index';
 
+$route['api/users']['get'] = 'api/users/index';
+$route['api/users']['post'] = 'api/users/store';
+$route['api/users/(:num)']['get'] = 'api/users/show/$1';
+$route['api/users/(:num)']['delete'] = 'api/users/destroy/$1';
+$route['api/roles']['get'] = 'api/users/roles';
+
+$route['users']['get'] = 'web/users/index';
+$route['users/create']['get'] = 'web/users/create';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

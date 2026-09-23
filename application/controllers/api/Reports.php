@@ -16,7 +16,7 @@ class Reports extends Api_Controller
             return;
         }
 
-        $this->require_ability('report:view');
+        $this->require_ability('report:view', 'Reports unavailable for your role.');
 
         $result = $this->report_service->summary(
             $this->input->get('from'),
@@ -38,7 +38,7 @@ class Reports extends Api_Controller
             return;
         }
 
-        $this->require_ability('report:view');
+        $this->require_ability('report:view', 'Reports unavailable for your role.');
 
         $result = $this->report_service->sales_by_day(
             $this->input->get('from'),
@@ -60,7 +60,7 @@ class Reports extends Api_Controller
             return;
         }
 
-        $this->require_ability('report:view');
+        $this->require_ability('report:view', 'Reports unavailable for your role.');
 
         $result = $this->report_service->top_products(
             $this->input->get('from'),
@@ -83,7 +83,7 @@ class Reports extends Api_Controller
             return;
         }
 
-        $this->require_ability('report:view');
+        $this->require_ability('report:view', 'Reports unavailable for your role.');
 
         $result = $this->report_service->low_stock(
             $this->input->get('threshold')

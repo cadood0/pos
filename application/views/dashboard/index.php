@@ -79,6 +79,11 @@
                    class="btn btn-outline-dark">
                     Reports
                 </a>
+
+                <a href="<?= site_url('users') ?>"
+                   class="btn btn-outline-dark">
+                    Users
+                </a>
             </div>
         </div>
     </div>

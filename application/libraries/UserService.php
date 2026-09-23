@@ -18,6 +18,31 @@ class UserService
         $this->role_model = $this->CI->Role_model;
     }
 
+    public function all()
+    {
+        return array_map([$this, 'present'], $this->user_model->get_all());
+    }
+
+    public function get($id)
+    {
+        $user = $this->user_model->find($id);
+
+        return $user ? $this->present($user) : NULL;
+    }
+
+    public function roles()
+    {
+        $roles = $this->role_model->get_all();
+
+        return array_map(function ($role) {
+            return [
+                'id'          => (int) $role->id,
+                'name'        => $role->name,
+                'description' => $role->description,
+            ];
+        }, $roles);
+    }
+
     public function create($data)
     {
         $payload = $this->build_payload($data, TRUE);
@@ -48,6 +73,49 @@ class UserService
         $this->assert_role_change_allowed($target, (int) $payload['role_id']);
 
         return $this->user_model->update_by_id($id, $payload);
+    }
+
+    public function delete($id, $actor_user_id)
+    {
+        $target = $this->user_model->find((int) $id);
+
+        if ( ! $target) {
+            return [
+                'success' => FALSE,
+                'code'    => 404,
+                'message' => 'User not found.',
+            ];
+        }
+
+        if ((int) $target->id === (int) $actor_user_id) {
+            return [
+                'success' => FALSE,
+                'code'    => 422,
+                'message' => 'You cannot delete your own account.',
+            ];
+        }
+
+        if ($this->is_admin_user($target) && (int) $target->status === 1 && $this->user_model->count_active_admins() <= 1) {
+            return [
+                'success' => FALSE,
+                'code'    => 422,
+                'message' => 'The last active administrator cannot be deleted.',
+            ];
+        }
+
+        if ($this->user_model->has_sales_history($id)) {
+            return [
+                'success' => FALSE,
+                'code'    => 409,
+                'message' => 'This user cannot be deleted because they have sales history.',
+            ];
+        }
+
+        return [
+            'success' => (bool) $this->user_model->delete_by_id($id),
+            'code'    => 200,
+            'message' => 'User deleted.',
+        ];
     }
 
     public function change_status($target_user_id, $status, $actor_user_id)
@@ -132,6 +200,30 @@ class UserService
         $role = $this->role_model->find((int) $user->role_id);
 
         return $role && $role->name === 'Admin';
+    }
+
+    public function present($user)
+    {
+        if ( ! $user) {
+            return NULL;
+        }
+
+        $role_name = isset($user->role_name) ? $user->role_name : NULL;
+
+        if ($role_name === NULL) {
+            $role = $this->role_model->find((int) $user->role_id);
+            $role_name = $role ? $role->name : NULL;
+        }
+
+        return [
+            'id'         => (int) $user->id,
+            'name'       => $user->name,
+            'email'      => $user->email,
+            'status'     => (int) $user->status,
+            'role_id'    => (int) $user->role_id,
+            'role'       => $role_name,
+            'created_at' => $user->created_at,
+        ];
     }
 
     protected function normalize_email($email)

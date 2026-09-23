@@ -104,4 +104,19 @@ class User_model extends MY_Model
             ->where('users.status', 1)
             ->count_all_results();
     }
+
+    public function has_sales_history($id)
+    {
+        return $this->db
+            ->from('sales')
+            ->where('user_id', (int) $id)
+            ->count_all_results() > 0;
+    }
+
+    public function delete_by_id($id)
+    {
+        return $this->db
+            ->where('id', (int) $id)
+            ->delete($this->table);
+    }
 }

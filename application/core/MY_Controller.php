@@ -73,12 +73,12 @@ class Api_Controller extends MY_Controller
         }
     }
 
-    protected function require_ability($ability)
+    protected function require_ability($ability, $message = 'Forbidden.')
     {
         $this->require_auth();
 
         if ( ! $this->authservice->can($ability)) {
-            $this->json_error('Reports unavailable for your role.', 403);
+            $this->json_error($message, 403);
             $this->output->_display();
             exit;
         }
