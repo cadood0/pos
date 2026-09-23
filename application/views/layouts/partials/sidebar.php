@@ -7,6 +7,7 @@
         <a class="nav-link text-white-50" href="<?= site_url('categories') ?>">Categories</a>
         <a class="nav-link text-white-50" href="<?= site_url('products') ?>">Products</a>
         <a class="nav-link text-white-50" href="<?= site_url('pos') ?>">POS</a>
+        <a class="nav-link text-white-50" href="<?= site_url('sales/history') ?>">Sales</a>
         <a class="nav-link text-white-50" href="<?= site_url('reports') ?>">Reports</a>
     </nav>
 </aside>

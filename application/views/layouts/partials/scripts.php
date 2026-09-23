@@ -5,7 +5,9 @@ window.APP = {
     dashboardUrl: <?= json_encode(site_url('dashboard')) ?>,
     logoutUrl: <?= json_encode(site_url('logout-ui')) ?>,
     categoriesUrl: <?= json_encode(site_url('categories')) ?>,
-    productsUrl: <?= json_encode(site_url('products')) ?>
+    productsUrl: <?= json_encode(site_url('products')) ?>,
+    posUrl: <?= json_encode(site_url('pos')) ?>,
+    salesUrl: <?= json_encode(site_url('sales')) ?>
 };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
