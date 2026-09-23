@@ -19,10 +19,20 @@ $route['api/categories/(:num)']['get'] = 'api/categories/show/$1';
 $route['api/categories/(:num)']['put'] = 'api/categories/update/$1';
 $route['api/categories/(:num)']['delete'] = 'api/categories/destroy/$1';
 
+$route['api/products']['get'] = 'api/products/index';
+$route['api/products']['post'] = 'api/products/store';
+$route['api/products/(:num)']['get'] = 'api/products/show/$1';
+$route['api/products/(:num)']['put'] = 'api/products/update/$1';
+$route['api/products/(:num)']['delete'] = 'api/products/destroy/$1';
+
 $route['categories']['get'] = 'web/categories/index';
 $route['categories/create']['get'] = 'web/categories/create';
 $route['categories/(:num)/edit']['get'] = 'web/categories/edit/$1';
 $route['categories/(:num)']['get'] = 'web/categories/show/$1';
+
+$route['products']['get'] = 'web/products/index';
+$route['products/create']['get'] = 'web/products/create';
+$route['products/(:num)/edit']['get'] = 'web/products/edit/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
